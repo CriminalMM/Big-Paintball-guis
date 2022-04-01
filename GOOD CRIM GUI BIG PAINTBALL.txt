@@ -1,0 +1,296 @@
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
+
+local w = library:CreateWindow("Big Paintball") -- Creates the window
+
+local b = w:CreateFolder("Crims's Gui") -- Creates the folder(U will put here your buttons,etc)
+
+b:Label("!CriminalMastermindW#8333",{
+    TextSize = 18; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
+    
+}) 
+
+b:Button("Kill All",function()
+    --!CriminalMastermindW#8333
+local target
+game.RunService.RenderStepped:Connect(function()
+    if game.Players.LocalPlayer:FindFirstChild("__SPAWNED")then
+        target=nil
+        for _,v in pairs(game.Players:GetChildren())do
+            if 
+            v.Character and
+            v.Character.Parent==game.Workspace and
+            (
+                v.Team~=game.Players.LocalPlayer.Team or
+                (
+                    game:GetService("Workspace")["__VARIABLES"].RoundType.Value=="FFA"and
+                    v~=game.Players.LocalPlayer and--
+                    math.random(1,10)
+                )
+            )and 
+            v.Character:FindFirstChild("Humanoid")and
+            v:FindFirstChild("__SPAWNED")and
+            not v.Character:FindFirstChild("ForceField")then
+                target=v.Character--target the enemy
+                require(game:GetService("ReplicatedStorage").Framework.Modules["2 | Network"]).Fire("New Projectile",1,1,math.floor(game.Workspace.DistributedGameTime))--shoot enemy
+                break
+            end
+        end
+    end
+end)
+local namecall
+namecall=hookmetamethod(game,"__namecall",function(a,b,c,d,e,...)
+    if tostring(getnamecallmethod())=="FireServer"and tostring(a)=="new projectile"and target~=nil then
+        game.Workspace.__THINGS.__REMOTES["do damage"]:FireServer(
+            {
+                target.Humanoid,
+                b[2],
+                235,
+                target.HumanoidRootPart.Position,
+                false
+            }
+        )
+    end
+    return namecall(a,b,c,d,e,...)
+end)
+game:GetService("StarterGui"):SetCore("SendNotification",{Title="Private",Text="Made by !CriminalMastermindW#8333",Duration=99999})
+end)
+
+b:Button("Unlock All",function()
+    local library = require(game:GetService("ReplicatedStorage").Framework.Library)
+
+    local env = getsenv(game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Game["First Person Controller"])
+    
+    local unlock_all = true
+    
+    --// Gun Bypass
+    local old_fire = library.Network.Fire
+    library.Network.Fire = newcclosure(function(self, ...)
+       local args = {...}
+    
+       if unlock_all and tostring(self) == "Request Respawn" then
+           args[1] = "1"
+       end
+    
+       return old_fire(self, unpack(args))
+    end)
+    
+    local old_own = env.DoesOwnGun
+    env.DoesOwnGun = function(...)
+       return (unlock_all and true) or old_own(...)
+    end
+    --
+    
+    --// Unlock All
+    local old_own_gun = library.GunCmds.DoesOwnGun
+    library.GunCmds.DoesOwnGun = newcclosure(function(self, ...)
+       return (unlock_all and true) or old_own_gun(self, ...)
+    end)
+    --
+    
+    --// Unlock Offsale
+    for _, gun in next, library.Directory.Guns do
+       gun["offsale"] = false
+    --
+    end
+end)
+b:Button("Print Socials",function()
+    print("TikTok: CriminalMastermindW Discord: !CriminalMastermindW#8333")
+end)
+b:Button("Spam My Cord",function()
+    while true do wait(0) 
+ 
+local A_1 = "Disco: !CriminalMastermindW 8333" local A_2 = "All" 
+local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest Event:FireServer(A_1, A_2) end
+end)
+b:Button("Inf Jump",function()
+
+local ScreenGui = Instance.new("ScreenGui")
+local main = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local Frame = Instance.new("Frame")
+local INFJUMP = Instance.new("TextButton")
+local TextLabel_2 = Instance.new("TextLabel")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+
+main.Name = "main"
+main.Parent = ScreenGui
+main.Active = true
+main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+main.BorderSizePixel = 0
+main.Position = UDim2.new(0.119258665, 0, 0, 0)
+main.Size = UDim2.new(0, 146, 0, 28)
+main.Active = true
+main.Draggable = true
+
+TextLabel.Parent = main
+TextLabel.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+TextLabel.BorderSizePixel = 0
+TextLabel.Size = UDim2.new(0, 146, 0, 28)
+TextLabel.Font = Enum.Font.SciFi
+TextLabel.Text = "Misc"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 17.000
+TextLabel.TextWrapped = true
+
+Frame.Parent = main
+Frame.BackgroundColor3 = Color3.fromRGB(86, 86, 86)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0, 0, 1, 0)
+Frame.Size = UDim2.new(0, 146, 0, 61)
+
+INFJUMP.Name = "INFJUMP"
+INFJUMP.Parent = main
+INFJUMP.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+INFJUMP.BorderSizePixel = 0
+INFJUMP.Position = UDim2.new(0.794520497, 0, 1.6785717, 0)
+INFJUMP.Size = UDim2.new(0, 21, 0, 21)
+INFJUMP.Font = Enum.Font.SourceSans
+INFJUMP.Text = ""
+INFJUMP.TextColor3 = Color3.fromRGB(0, 0, 0)
+INFJUMP.TextSize = 14.000
+INFJUMP.MouseButton1Down:connect(function()
+local Player = game:GetService'Players'.LocalPlayer;
+local UIS = game:GetService'UserInputService';
+ 
+_G.JumpHeight = 50;
+ 
+function Action(Object, Function) if Object ~= nil then Function(Object); end end
+ 
+UIS.InputBegan:connect(function(UserInput)
+    if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+        Action(Player.Character.Humanoid, function(self)
+            if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                Action(self.Parent.HumanoidRootPart, function(self)
+                    self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+                end)
+            end
+        end)
+    end
+end)
+end)
+
+TextLabel_2.Parent = main
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+TextLabel_2.BorderSizePixel = 0
+TextLabel_2.Position = UDim2.new(0.0547945201, 0, 1.57142854, 0)
+TextLabel_2.Size = UDim2.new(0, 94, 0, 28)
+TextLabel_2.Font = Enum.Font.SciFi
+TextLabel_2.Text = "Inf jump"
+TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.TextSize = 17.000
+TextLabel_2.TextWrapped = true
+
+-- Scripts:
+
+local function TKDWQ_fake_script() -- INFJUMP.LocalScript 
+local script = Instance.new('LocalScript', INFJUMP)
+
+function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+
+counter = 0
+
+while wait(0.1)do
+script.Parent.BackgroundColor3 = Color3.fromHSV(zigzag(counter),1,1)
+ 
+counter = counter + 0.01
+end
+end
+coroutine.wrap(TKDWQ_fake_script)()
+end)
+b:Button("Copy YT Channel",function()
+    setclipboard ("https://www.youtube.com/channel/UC0oAL1z68rax1xL3i84rCug") toclipboard ("https://www.youtube.com/channel/UC0oAL1z68rax1xL3i84rCug")
+end)
+b:Button("Aimbot",function()
+    local Area = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local MyCharacter = LocalPlayer.Character
+local MyRoot = MyCharacter:FindFirstChild("HumanoidRootPart")
+local MyHumanoid = MyCharacter:FindFirstChild("Humanoid")
+local Mouse = LocalPlayer:GetMouse()
+local MyView = Area.CurrentCamera
+local MyTeamColor = LocalPlayer.TeamColor
+local HoldingM2 = false
+local Active = false
+local Lock = false
+local Epitaph = .200 ---Note: The Bigger The Number, The More Prediction.
+local HeadOffset = Vector3.new(0, .3, 0)
+
+_G.TeamCheck = false
+_G.AimPart = "HumanoidRootPart"
+_G.Sensitivity = 0
+_G.CircleSides = 64
+_G.CircleColor = Color3.fromRGB(255, 0, 130)
+_G.CircleTransparency = 0
+_G.CircleRadius = 200
+_G.CircleFilled = false
+_G.CircleVisible = true
+_G.CircleThickness = 1
+
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Position = Vector2.new(MyView.ViewportSize.X / 2, MyView.ViewportSize.Y / 2)
+FOVCircle.Radius = _G.CircleRadius
+FOVCircle.Filled = _G.CircleFilled
+FOVCircle.Color = _G.CircleColor
+FOVCircle.Visible = _G.CircleVisible
+FOVCircle.Transparency = _G.CircleTransparency
+FOVCircle.NumSides = _G.CircleSides
+FOVCircle.Thickness = _G.CircleThickness
+
+local function CursorLock()
+	UIS.MouseBehavior = Enum.MouseBehavior.LockCenter
+end
+local function UnLockCursor()
+	HoldingM2 = false Active = false Lock = false 
+	UIS.MouseBehavior = Enum.MouseBehavior.Default
+end
+function FindNearestPlayer()
+	local dist = math.huge
+	local Target = nil
+	for _, v in pairs(Players:GetPlayers()) do
+		if v ~= LocalPlayer and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("Humanoid").Health > 0 and v.Character:FindFirstChild("HumanoidRootPart") and v then
+			local TheirCharacter = v.Character
+			local CharacterRoot, Visible = MyView:WorldToViewportPoint(TheirCharacter[_G.AimPart].Position)
+			if Visible then
+				local RealMag = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(CharacterRoot.X, CharacterRoot.Y)).Magnitude
+				if RealMag < dist and RealMag < FOVCircle.Radius then
+					dist = RealMag
+					Target = TheirCharacter
+				end
+			end
+		end
+	end
+	return Target
+end
+
+UIS.InputBegan:Connect(function(Input)
+	if Input.UserInputType == Enum.UserInputType.MouseButton2 then
+		HoldingM2 = true
+		Active = true
+		Lock = true
+		if Active then
+        	local The_Enemy = FindNearestPlayer()
+			while HoldingM2 do task.wait(.000001)
+				if Lock and The_Enemy ~= nil then
+					local Future = The_Enemy.HumanoidRootPart.CFrame + (The_Enemy.HumanoidRootPart.Velocity * Epitaph + HeadOffset)
+					MyView.CFrame = CFrame.lookAt(MyView.CFrame.Position, Future.Position)
+					CursorLock()
+				end
+			end
+		end
+	end
+end)
+UIS.InputEnded:Connect(function(Input)
+	if Input.UserInputType == Enum.UserInputType.MouseButton2 then
+		UnLockCursor()
+	end
+end)
+game.StarterGui:SetCore("SendNotification", {Title = "Working.", Text = "Enjoy Crim's Gui", Duration = 5,})
+end)
